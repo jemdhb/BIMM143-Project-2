@@ -1,0 +1,6 @@
+Boxer_1 (L)
+Boxer_2 (L)
+German_Shepherd (L) 
+Basenji (S)
+Great_Dane (XL)
+Labrador_Retriever (L)

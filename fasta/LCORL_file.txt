@@ -1,0 +1,18 @@
+>NC_049744.1:91269520-91269530 Canis lupus familiaris isolate UNSW-BAS-2019 breed Basenji chromosome 3, alternate assembly UNSW_CanFamBas_1.0, whole genome shotgun sequence
+TGCTGTGCAAG
+
+>NC_006585.4:91269520-91269530 Canis lupus familiaris isolate Tasha breed boxer chromosome 3, alternate assembly Dog10K_Boxer_Tasha, whole genome shotgun sequence
+GAAGAAAAAAA
+
+>NC_006585.3:91269520-91269530 Canis lupus familiaris breed boxer chromosome 3, CanFam3.1, whole genome shotgun sequence
+ATTCATAGAGT
+
+>NC_049224.1:91269520-91269530 Canis lupus familiaris isolate Mischka breed German Shepherd chromosome 3, alternate assembly UU_Cfam_GSD_1.0, whole genome shotgun sequence
+CCATTCCGCCA
+
+>NC_051807.1:91269520-91269530 Canis lupus familiaris isolate SID07034 breed Labrador retriever chromosome 3, ROS_Cfam_1.0, whole genome shotgun sequence
+ACAATTTCGTT
+
+>NC_049263.1:91269520-91269530 Canis lupus familiaris isolate Zoey breed Great Dane chromosome 3, alternate assembly UMICH_Zoey_3.1, whole genome shotgun sequence
+TGCTCCCTGGG
+

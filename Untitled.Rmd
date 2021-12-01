@@ -1,0 +1,173 @@
+---
+title: "Project 2 Notebook"
+output:
+  html_document:
+    df_print: paged
+    fig_caption: yes
+---
+
+
+
+## Introduction
+### Scientific Question
+*hfi* hihiao
+```{r}
+#for reading in fasta files
+library("BiocManager")
+#library("png")
+#for reading in excel files
+library("readxl")
+
+library("seqinr")
+#for multiple sequence alignment 
+library("msa")
+#for msa pretty print 
+library("tinytex")
+#library("mclust")
+#visualization of results 
+library("ggplot2")
+#for clustering of DNA seqs 
+library("DECIPHER")
+```
+```{r fig.cap=c("Basenji (S)", "Boxer (L)","Great Dane (XL)","Golden Retriever (L)","German Shepherd (L)")}
+
+knitr::include_graphics("dog/Basenji.jpg")
+knitr::include_graphics("dog/Boxer.jpg")
+knitr::include_graphics("dog/greatdane.jpg")
+knitr::include_graphics("dog/labret.jpg")
+knitr::include_graphics("dog/german sheperd.jpg")
+
+```
+
+
+
+```{r}
+alignment_name<<-""
+#notebook functions
+
+#align all fasta files from file_name with provided naming file for ind seqs 
+#return msa before pretty print
+mult_alingments<-function(file_name,fasta_names,name){
+  #read in fasta for all dogs
+  string_set<-readDNAStringSet(file=file_name,use.names=FALSE)
+  #read in seq names as list 
+  table=read.table(fasta_names, header = FALSE, sep = "\n")[["V1"]]
+  #update names for pretty print
+  names(string_set)<-table
+  #align unnamed seqs
+  alignment<-msa(string_set)
+  
+  alignment_name<<-gsub(" ", "", paste(name,".pdf"), fixed = TRUE)
+  #return pretty alignment, does not show up on my console
+  msaPrettyPrint(alignment, file=alignment_name,output="pdf", showNames="right",showLogo="top",
+                      askForOverwrite=FALSE,showNumbering="none",paperWidth=6,
+                      paperHeight=3)
+  return(alignment_name)
+}
+#have figure with white background, no gridline and only axis ticks, no lines
+tune_figure<-function(fig,addons){
+  return(fig+theme_minimal()+theme(
+    plot.background = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank()))
+    }
+```
+
+LCORL Analysis 
+
+```{r}
+#LCORL CALL
+alignment<-mult_alingments("fasta/LCORL_file.txt","fasta/names.txt","LCORL")
+```
+```{r, echo=F}
+#view pdf
+knitr::include_graphics(alignment_name)
+```
+```{r}
+#IGF1 CALL
+#alingment_name<-"igf1"
+alignment<-mult_alingments("fasta/igf1.fasta","fasta/igf1_names.txt","igf1")
+```
+
+
+```{r, echo=F}
+#view pdf
+knitr::include_graphics(alignment_name)
+```
+#old clustering before correct package found 
+string_set<-as.list(readDNAStringSet(file="fasta/LCORL_file.txt",use.names=FALSE))
+l<-list()
+for (s in string_set) 
+  {
+  s<-gsub("A",0,s)
+  s<-gsub("C",1,s)
+  s<-gsub("G",2,s)
+  s<-gsub("T",3,s)
+  
+  l<-append(l,list(s))
+  print(l)
+}
+table=read.table("fasta/names.txt", header = FALSE, sep = "\n")[["V1"]]
+print(data.frame(l))
+#to_clust<-data.frame(l,row.names =table))
+
+mydata<-scale(to_clust)
+d <- dist(mydata, method = "euclidean") # distance matrix
+fit <- hclust(d, method="ward")
+plot(fit) # display dendogram
+groups <- cutree(fit, k=3) # cut tree into 5 clusters
+# draw dendogram with red borders around the 5 clusters
+rect.hclust(fit, k=3, border="red")
+
+```{r}
+#visualize size breakdown of dogs
+snps<-read_excel("dog snps.xlsx")
+#fix ordering of legend
+snps$Name <- factor(snps$Name, levels = c("Basenji", "Boxer", "German_Shepherd","Labrador_retriever","Great_Dane"))
+p<-ggplot(data = snps, aes(size))+scale_x_discrete(limits = c("S","L","XL"))+geom_bar(aes(fill = Name))+scale_fill_manual(values = c("deepskyblue4","brown2","brown","brown4","darkseagreen4"))
+tune_figure(p,add_ons)
+```
+
+
+```{r}
+#visualize IGF1 SNP by size 
+p<-ggplot(data = snps, mapping = aes(y=igf1,x=size_num))+geom_point(size=4,alpha=0.6,color="darkseagreen4")
+p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
+```
+
+
+```{r}
+#visualize LCORL SNP by size 
+p<-ggplot(data = snps, mapping = aes(y=lcorl,x=size_num))+geom_point(size=4,alpha=0.6,color="darkseagreen4")
+p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
+```
+
+```{r}
+#Cluster LCORL extended fragment 
+dna <- string_set<-readDNAStringSet(file="fasta/LCORL_file.txt",use.names=FALSE)
+names(dna)=read.table("fasta/names.txt", header = FALSE, sep = "\n")[["V1"]]
+d1 <- DistanceMatrix(dna, type="dist")
+dendogram<-IdClusters(d1, method="complete", cutoff=0.05, showPlot=FALSE, type="dendrogram")
+#plot(dendogram,horiz=FALSE,h=1150)
+title<-"LCORL Extended Fragment Dendogram"
+nodePar <- list(lab.cex = 0.6, pch = c(NA, 19), 
+                cex = 0.7, col = "black")
+plot(as.dendrogram(dendogram), ylab = "Height", nodePar = nodePar,main=title)
+
+```
+http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-must-known-methods-unsupervised-machine-learning#plot.dendrogram-function for look and non cut off stuff
+
+```{r}
+#Cluster IGF1 extended fragment 
+dna <- string_set<-readDNAStringSet(file="fasta/igf1.fasta",use.names=FALSE)
+names(dna)=read.table("fasta/igf1_names.txt", header = FALSE, sep = "\n")[["V1"]]
+d <- DistanceMatrix(dna, type="dist")
+dendogram<-IdClusters(d, method="complete", cutoff=0.05, showPlot=FALSE, type="dendrogram")
+title<-"IGF1 Extended Fragment Dendogram"
+nodePar <- list(lab.cex = 0.6, pch = c(NA, 19), 
+                cex = 0.7, col = "black")
+plot(as.dendrogram(dendogram), ylab = "Height", nodePar = nodePar,main=title)
+
+```
+
