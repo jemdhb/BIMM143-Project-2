@@ -28,13 +28,29 @@ library("ggplot2")
 #for clustering of DNA seqs 
 library("DECIPHER")
 ```
-```{r, out.width = "400px", fig.cap=c("Basenji (S)", "Boxer (L)","Great Dane (XL)","Golden Retriever (L)","German Shepherd (L)")}
+```{r, out.width = "100px", fig.cap="Basenji (S)"}
 
 knitr::include_graphics("dog/Basenji.jpg")
-knitr::include_graphics("dog/labret.jpg")
-knitr::include_graphics("dog/german sheperd.jpg")
+```
+```{r, out.width = "200px", fig.cap="Boxer (L)"}
 knitr::include_graphics("dog/Boxer.jpg")
+
+
+```
+```{r, out.width = "200px", fig.cap="Great Dane (XL)"}
 knitr::include_graphics("dog/greatdane.jpg")
+
+
+``` 
+```{r, out.width = "1000px", fig.cap="Golden Retriever (L)"}
+
+knitr::include_graphics("dog/labret.jpg")
+
+```
+```{r, fig.cap="German Shepherd (L)"}
+
+
+knitr::include_graphics("dog/german_sheperd.jpg")
 
 
 ```

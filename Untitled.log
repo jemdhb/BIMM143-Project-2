@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  3 DEC 2021 16:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  3 DEC 2021 16:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -504,7 +504,8 @@ Package graphics Info: Driver file: pdftex.def on input line 99.
 )
 \Gin@req@height=\dimen129
 \Gin@req@width=\dimen130
-) (./Untitled.aux)
+)
+No file Untitled.aux.
 \openout1 = `Untitled.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
@@ -674,144 +675,29 @@ File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 <dog/Basenji.jpg, id=21, 501.875pt x 474.77374pt>
 File: dog/Basenji.jpg Graphic file (type jpg)
 <use dog/Basenji.jpg>
-Package pdftex.def Info: dog/Basenji.jpg  used on input line 249.
-(pdftex.def)             Requested size: 469.77914pt x 444.41107pt.
+Package pdftex.def Info: dog/Basenji.jpg  used on input line 248.
+(pdftex.def)             Requested size: 401.52351pt x 379.84125pt.
 <dog/labret.jpg, id=22, 147.4308pt x 98.2872pt>
 File: dog/labret.jpg Graphic file (type jpg)
 <use dog/labret.jpg>
-Package pdftex.def Info: dog/labret.jpg  used on input line 261.
+Package pdftex.def Info: dog/labret.jpg  used on input line 258.
 (pdftex.def)             Requested size: 147.43718pt x 98.29143pt.
 
-LaTeX Warning: File `dog/german sheperd.jpg' not found on input line 273.
+! LaTeX Error: File `dog/german sheperd' not found.
 
-<dog/german sheperd.jpg, id=23, 147.4308pt x 101.9007pt>
-File: dog/german sheperd.jpg Graphic file (type jpg)
-<use dog/german sheperd.jpg>
-Package pdftex.def Info: dog/german sheperd.jpg  used on input line 273.
-(pdftex.def)             Requested size: 147.43268pt x 101.90198pt.
-<dog/Boxer.jpg, id=24, 315.579pt x 246.6816pt>
-File: dog/Boxer.jpg Graphic file (type jpg)
-<use dog/Boxer.jpg>
-Package pdftex.def Info: dog/Boxer.jpg  used on input line 285.
-(pdftex.def)             Requested size: 315.58784pt x 246.6885pt.
-<dog/greatdane.jpg, id=25, 442.65375pt x 451.6875pt>
-File: dog/greatdane.jpg Graphic file (type jpg)
-<use dog/greatdane.jpg>
-Package pdftex.def Info: dog/greatdane.jpg  used on input line 297.
-(pdftex.def)             Requested size: 442.67966pt x 451.71394pt.
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 309.
-[2] [3 <./dog/Basenji.jpg> <./dog/labret.jpg>] [4 <./dog/german sheperd.jpg> <.
-/dog/Boxer.jpg>] [5 <./dog/greatdane.jpg>]
-<LCORL.pdf, id=48, 433.62pt x 216.81pt>
-File: LCORL.pdf Graphic file (type pdf)
-<use LCORL.pdf>
-Package pdftex.def Info: LCORL.pdf  used on input line 360.
-(pdftex.def)             Requested size: 433.63878pt x 216.81938pt.
-<igf1.pdf, id=49, 433.62pt x 216.81pt>
-File: igf1.pdf Graphic file (type pdf)
-<use igf1.pdf>
-Package pdftex.def Info: igf1.pdf  used on input line 373.
-(pdftex.def)             Requested size: 433.63878pt x 216.81938pt.
-[6 <./LCORL.pdf>]
-<Untitled_files/figure-latex/unnamed-chunk-8-1.pdf, id=70, 453.695pt x 303.1325
-pt>
-File: Untitled_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
-
-<use Untitled_files/figure-latex/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: Untitled_files/figure-latex/unnamed-chunk-8-1.pdf  use
-d on input line 386.
-(pdftex.def)             Requested size: 453.6939pt x 303.13176pt.
-
-Overfull \vbox (0.94658pt too high) detected at line 394
- []
-
-[7 <./igf1.pdf> <./Untitled_files/figure-latex/unnamed-chunk-8-1.pdf>]
-<Untitled_files/figure-latex/unnamed-chunk-9-1.pdf, id=93, 459.7175pt x 315.177
-5pt>
-File: Untitled_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
-
-<use Untitled_files/figure-latex/unnamed-chunk-9-1.pdf>
-Package pdftex.def Info: Untitled_files/figure-latex/unnamed-chunk-9-1.pdf  use
-d on input line 396.
-(pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
-<Untitled_files/figure-latex/unnamed-chunk-10-1.pdf, id=94, 459.7175pt x 315.17
-75pt>
-File: Untitled_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type pdf
-)
-<use Untitled_files/figure-latex/unnamed-chunk-10-1.pdf>
-Package pdftex.def Info: Untitled_files/figure-latex/unnamed-chunk-10-1.pdf  us
-ed on input line 406.
-(pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
-[8 <./Untitled_files/figure-latex/unnamed-chunk-9-1.pdf>]
-<Untitled_files/figure-latex/unnamed-chunk-11-1.pdf, id=110, 395.4775pt x 286.0
-6876pt>
-File: Untitled_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf
-)
-<use Untitled_files/figure-latex/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: Untitled_files/figure-latex/unnamed-chunk-11-1.pdf  us
-ed on input line 425.
-(pdftex.def)             Requested size: 395.48256pt x 286.07242pt.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 426.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 426.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 426.
-
-Underfull \hbox (badness 5091) in paragraph at lines 425--428
-[][] []$\T1/lmr/m/n/10 (+20) h t tp : / / w w w . s t
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 425--428
-\T1/lmr/m/n/10 (+20) h d a . c o m / e n g l i s h / w i k i / b e a u t i f ul
- -[] d e n d r o g r am -[] v i s u a l i z a t i o ns -[] in -[] r -[] 5 -[] m
- u st -[] k n o w n -[] m e t h o d s -[] u n s u p e r v i s ed -[]
- []
-
-[9 <./Untitled_files/figure-latex/unnamed-chunk-10-1.pdf>]
-<Untitled_files/figure-latex/unnamed-chunk-12-1.pdf, id=127, 395.4775pt x 294.0
-9875pt>
-File: Untitled_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf
-)
-<use Untitled_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: Untitled_files/figure-latex/unnamed-chunk-12-1.pdf  us
-ed on input line 446.
-(pdftex.def)             Requested size: 395.47653pt x 294.09802pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 448.
-[10 <./Untitled_files/figure-latex/unnamed-chunk-11-1.pdf>] [11 <./Untitled_fil
-es/figure-latex/unnamed-chunk-12-1.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 448.
-(./Untitled.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 448.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 448.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 448.
- ) 
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.268 ...graphics[width=400px]{dog/german sheperd}
+                                                   \caption{Great Dane (XL)}...
+ 
 Here is how much of TeX's memory you used:
- 13169 strings out of 492649
- 193541 string characters out of 6129622
- 306972 words of memory out of 5000000
- 16803 multiletter control sequences out of 15000+600000
- 50325 words of font info for 68 fonts, out of 8000000 for 9000
+ 13046 strings out of 492649
+ 190895 string characters out of 6129622
+ 302794 words of memory out of 5000000
+ 16722 multiletter control sequences out of 15000+600000
+ 37810 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,6n,38p,799b,454s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/
-texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}</usr/local/texlive/2018/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2018/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2018/tex
-mf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2018/texmf-dist/fo
-nts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/
-public/lm/lmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/l
-mr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmri10.pfb><
-/usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local
-/texlive/2018/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2
-018/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Untitled.pdf (11 pages, 584919 bytes).
-PDF statistics:
- 201 PDF objects out of 1000 (max. 8388607)
- 153 compressed objects within 2 object streams
- 21 named destinations out of 1000 (max. 500000)
- 12365 words of extra memory for PDF output out of 14400 (max. 10000000)
-
+ 34i,6n,38p,237b,454s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!
