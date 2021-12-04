@@ -1,17 +1,24 @@
 ---
 title: "Project 2 Notebook"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
     fig_caption: yes
+  pdf_document: default
 ---
 
 
 
 ## Introduction
 ### Scientific Question
-*hfi* hihiao
+When examining canine breeds, will breeds of a similar size (e.g. Cocker Spaniel, English Cocker Spaniel) have more related genes and SNP's surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher)?
+
+Note: I only selected 6 genes most closely associated with life span (HMGA2 , IGF1 , IGSF1, IRS4, LCORL,and SMAD2 ). There are more genes involved in this, but these are the most significant.
+
+Note: Size will be determined by the AKC. You can filter by all AKC recognized dog breeds by size. This is categorical data; if it is easier for me to work with numerical instead, I will instead use the ideal height and weight, as outlined in the official standard of each breed. 
+
+### Scientific Hypothesis
+If you examine canine breeds, then breeds of a similar size (e.g.Cocker Spaniel,English Cocker Spaniel) they will have more related SNPs and or fragments of genes surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher).
 ```{r}
 #for reading in fasta files
 library("BiocManager")
@@ -27,27 +34,29 @@ library("tinytex")
 library("ggplot2")
 #for clustering of DNA seqs 
 library("DECIPHER")
+#library("EBImage")
 ```
-```{r, out.width = "100px", fig.cap="Basenji (S)"}
+
+```{r, out.width = "100px", fig.cap="Basenji (S)",fig.align="center"}
 
 knitr::include_graphics("dog/Basenji.jpg")
 ```
-```{r, out.width = "200px", fig.cap="Boxer (L)"}
+```{r, out.width = "200px", fig.cap="Boxer (L)",fig.align="center"}
 knitr::include_graphics("dog/Boxer.jpg")
 
 
 ```
-```{r, out.width = "200px", fig.cap="Great Dane (XL)"}
+```{r, out.width = "200px", fig.cap="Great Dane (XL)",fig.align="center"}
 knitr::include_graphics("dog/greatdane.jpg")
 
 
 ``` 
-```{r, out.width = "1000px", fig.cap="Golden Retriever (L)"}
+```{r, fig.width=.5, fig.height=7, fig.align="center",fig.cap="Golden Retriever (L)"}
 
 knitr::include_graphics("dog/labret.jpg")
 
 ```
-```{r, fig.cap="German Shepherd (L)"}
+```{r, fig.cap="German Shepherd (L)",fig.align="center"}
 
 
 knitr::include_graphics("dog/german_sheperd.jpg")
@@ -65,18 +74,26 @@ alignment_name<<-""
 #align fasta from file_name with names from name file (visualization purposes)
 #after alignment displays msaprettyprint results for human readable data
 mult_alingments<-function(file_name,fasta_names,name){
+  
   #read in fasta for all dogs
   string_set<-readDNAStringSet(file=file_name,use.names=FALSE)
+  
   #read in seq names as list 
   table=read.table(fasta_names, header = FALSE, sep = "\n")[["V1"]]
+  
   #update names for pretty print
   names(string_set)<-table
+  
   #align unnamed seqs
-  alignment<-msa(string_set)
+  alignment<-msa(string_set,order="input")
+  
   #update global variable so multiple pretty print runs dont overrun eachother
   alignment_name<<-gsub(" ", "", paste(name,".pdf"), fixed = TRUE)
+  
   #return pretty alignment, does not show up on my console
-  msaPrettyPrint(alignment, file=alignment_name,output="pdf", showNames="right",showLogo="top",askForOverwrite=FALSE,showNumbering="none",paperWidth=6,paperHeight=3)
+  msaPrettyPrint(alignment, file=alignment_name,output="pdf",
+                 showNames="right",showLogo="top",askForOverwrite=FALSE,
+                 showNumbering="none",paperWidth=6,paperHeight=3)
   return(alignment_name)
 }
 #have figure with white background, no gridline and only axis ticks, no lines
@@ -106,6 +123,7 @@ LCORL Analysis
 ```{r}
 #LCORL CALL
 alignment<-mult_alingments("fasta/LCORL_file.txt","fasta/names.txt","LCORL")
+print(alignment_name)
 ```
 ```{r, echo=F}
 #view pdf
