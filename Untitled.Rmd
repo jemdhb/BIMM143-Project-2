@@ -1,6 +1,7 @@
 ---
 title: "Project 2 Notebook"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
     fig_caption: yes
