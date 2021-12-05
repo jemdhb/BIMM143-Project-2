@@ -16,6 +16,7 @@ Introduction (40 points)
 - 10 points for specific, measurable, and clear scientific question
 
 ### Scientific Question
+
 When examining dog breeds (canis lupus familiaris), will breeds of a similar size (e.g. Cocker Spaniel, English Cocker Spaniel) have more related genes and SNP's surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher)?
 
 Note: I only selected 6 genes most closely associated with life span (HMGA2 , IGF1 (done) , IGSF1 (too big), IRS4 (too big), LCORL (done),and SMAD2 (too big) ). There are more genes involved in this, but these are the most significant.
@@ -32,14 +33,20 @@ If you examine canine breeds, then breeds of a similar size (e.g.Cocker Spaniel,
 
 - 10 points for description of what analyses were done and how the data was downloaded for the project
 ## Analysis Performed:
+
 ### SNP's 
+
 - EDA: Scatterplots of SNP nucleotide vs size to check for visible trends before analysis
 - Multiple Sequence Alignment (of SNP+border sequences), which was then visualized with msaPrettyPrint()
 _ Clustering of MSA results, which were visualized as Dendrograms 
+
 ### Gene Fragments:
+
 - Multiple Sequence Alignment (of SNP+border sequences), which was then visualized with msaPrettyPrint()
 _ Clustering of MSA results, which were visualized as Dendrograms 
+
 ### Data Sourcing 
+
 - Dog breed information (sizing): American Kennel Club LINK 
 _ Data downloads:
 - SNP and gene positionings: 
@@ -187,57 +194,62 @@ http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-mus
 #Cluster IGF1 extended fragment 
 create_dendogram("fasta/igf1.fasta", "fasta/igf1_names.txt", "IGF1 Extended Fragment Dendogram")
 ```
+
 IGSF1 ANALYSIS 
 
-string_set<-readAAStringSet(file="fasta/IGSF1.fasta",use.names=TRUE)
+#string_set<-readAAStringSet(file="fasta/IGSF1.fasta",use.names=TRUE)
 #read in seq names as list 
-table=read.table("fasta/IGSF1_names.txt", header = FALSE, sep = "\n")[["V1"]]
+#table=read.table("fasta/IGSF1_names.txt", header = FALSE, sep = "\n")[["V1"]]
 #update names for pretty print
-names(string_set)<-table
-mult<-msa(string_set)
-
-
+#names(string_set)<-table
+#mult<-msa(string_set)
 
 ```{r}
-igsf1<-mult_alingments("fasta/IGSF1.fasta","fasta/IGSF1_names.txt","IGSF1",TRUE,FALSE)
-```
 
+#library(seqinr)
+#library(ape)
 
-```{r}
-library(seqinr)
-library(ape)
-igsf1_aln <- msaConvert(igsf1, type="seqinr::alignment")
-d <- dist.alignment(igsf1_aln, "identity")
-dendogram<-IdClusters(d, method="complete", cutoff=0.05, showPlot=FALSE,type="dendrogram")
+#takes too long to run, will add in final submission
+#igsf1<-mult_alingments("fasta/IGSF1.fasta","fasta/IGSF1_names.txt","IGSF1",TRUE,FALSE)
+
+#igsf1_aln <- msaConvert(igsf1, type="seqinr::alignment")
+#d <- dist.alignment(igsf1_aln, "identity")
+#dendogram<-IdClusters(d, method="complete", cutoff=0.05, showPlot=FALSE,type="dendrogram")
   #fix names being cut-off
-  nodePar <- list(lab.cex = 0.6, pch = c(NA, 19), 
-                cex = 0.7, col = "black")
+ # nodePar <- list(lab.cex = 0.6, pch = c(NA, 19), 
+                #cex = 0.7, col = "black")
 #plot results 
-plot(as.dendrogram(dendogram), ylab = "Height", nodePar =nodePar,main="igsf1")
+#plot(as.dendrogram(dendogram), ylab = "Height", nodePar =nodePar,main="igsf1")
 ```
 The differences sequence-wise seem to be minor when looking at such a narrow scope and small subsection of dogs. Thankfully there is also expression data for the genes studied which covers more dog-breeds, depicted below
 
+
 ```{r, out.width = "200px", echo=F}
-knitr::include_graphics(c("small coll.png","large coll.png"))
+knitr::include_graphics("small_coll.png")
+```
+
+
+```{r, out.width = "200px", echo=F}
+knitr::include_graphics("large_coll.png")
 ```
 ```{r}
 #expression data 
 expression<-read_excel("dog snps.xlsx",sheet="IGF1")
 myColors <- c("antiquewhite4", " coral3", "darkgoldenrod4","darkcyan", "darkorchid4")
-p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(y="Weight of Dog (kg)", x = "Expression of IGF1")+ggtitle("IGF1 Expression by dog weight (grouped by dog size)")
+p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(y="Weight of Dog (kg)", x = "Expression of IGF1")+ggtitle("IGF1 Expression by Dog Weight (grouped by dog size)")
 p+scale_color_manual(values=myColors)
 ```
 
 
 ```{r}
 expression<-read_excel("dog snps.xlsx",sheet="LCORL")
-p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)
+p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(y="Weight of Dog (kg)", x = "Expression of LCORL")+ggtitle("LCORL Expression by Dog Weight (grouped by dog size)")
 p+scale_color_manual(values=myColors)
 ```
 
 
 ```{r}
 expression<-read_excel("dog snps.xlsx",sheet="SMAD2")
-p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)
+p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(y="Weight of Dog (kg)", x = "Expression of SMAD2")+ggtitle("SMAD2 Expression by Dog Weight (grouped by dog size)")
 p+scale_color_manual(values=myColors)
 ```
