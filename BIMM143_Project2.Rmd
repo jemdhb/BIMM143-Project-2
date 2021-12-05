@@ -63,7 +63,7 @@ library("DECIPHER")
 library('dendextend')
 ```
 
-
+First we will be performing MSA and clustering with various sequence data (SNPS and gene fragments). Unfortunately, the scope of this data is limited to the 5 breeds shown below 
 ```{r, out.width = "200px", echo=F}
 knitr::include_graphics("dog/My_Post1.jpg")
 ```
@@ -133,30 +133,6 @@ plot(as.dendrogram(dendogram), ylab = "Height", nodePar =nodePar,main=fig_title)
   return(as.dendrogram(dendogram))
 }
 ```
-
-LCORL Analysis 
-
-```{r}
-#LCORL CALL
-alignment<-mult_alingments("fasta/LCORL_file.txt","fasta/names.txt","LCORL")
-print(alignment_name)
-```
-```{r, echo=F}
-#view pdf
-knitr::include_graphics(alignment_name)
-```
-```{r}
-#IGF1 CALL
-alignment<-mult_alingments("fasta/igf1.fasta","fasta/igf1_names.txt","igf1")
-```
-
-
-```{r, echo=F}
-#view pdf
-knitr::include_graphics(alignment_name)
-```
-
-
 ```{r}
 #visualize size breakdown of dogs
 snps<-read_excel("dog snps.xlsx")
@@ -167,6 +143,27 @@ tune_figure(p,add_ons)
 ```
 
 
+LCORL Analysis 
+
+```{r}
+#visualize LCORL SNP by size 
+p<-ggplot(data = snps, mapping = aes(y=lcorl,x=size_num))+geom_point(size=4,alpha=0.6,color="darkseagreen4")+ labs(y="LCORL Nucleotide", x = "Dog Size")+ggtitle("LCORL SNP Distribution by Dog Size")
+p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
+```
+```{r}
+#LCORL CALL
+alignment<-mult_alingments("fasta/LCORL_file.txt","fasta/names.txt","LCORL")
+print(alignment_name)
+```
+```{r, echo=F}
+#view pdf
+knitr::include_graphics(alignment_name)
+```
+```{r}
+#Cluster LCORL extended fragment 
+create_dendogram("fasta/LCORL_file.txt", "fasta/names.txt", "LCORL Extended Fragment Dendogram")
+```
+#IGF1 ANALYSIS
 ```{r}
 abbrev_x <- c("A","C","'G","'T")
 print(length(abbrev_x))
@@ -176,17 +173,13 @@ p<-ggplot(data = snps, mapping = aes(y=igf1,x=size_num))+geom_point(size=4,alpha
 p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
 
 ```
-
-
 ```{r}
-#visualize LCORL SNP by size 
-p<-ggplot(data = snps, mapping = aes(y=lcorl,x=size_num))+geom_point(size=4,alpha=0.6,color="darkseagreen4")+ labs(y="LCORL Nucleotide", x = "Dog Size")+ggtitle("LCORL SNP Distribution by Dog Size")
-p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
+#IGF1 CALL
+alignment<-mult_alingments("fasta/igf1.fasta","fasta/igf1_names.txt","igf1")
 ```
-
-```{r}
-#Cluster LCORL extended fragment 
-create_dendogram("fasta/LCORL_file.txt", "fasta/names.txt", "LCORL Extended Fragment Dendogram")
+```{r, echo=F}
+#view pdf
+knitr::include_graphics(alignment_name)
 ```
 http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-must-known-methods-unsupervised-machine-learning#plot.dendrogram-function for look and non cut off stuff
 
@@ -194,15 +187,15 @@ http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-mus
 #Cluster IGF1 extended fragment 
 create_dendogram("fasta/igf1.fasta", "fasta/igf1_names.txt", "IGF1 Extended Fragment Dendogram")
 ```
+IGSF1 ANALYSIS 
 
-```{r}
 string_set<-readAAStringSet(file="fasta/IGSF1.fasta",use.names=TRUE)
 #read in seq names as list 
 table=read.table("fasta/IGSF1_names.txt", header = FALSE, sep = "\n")[["V1"]]
 #update names for pretty print
 names(string_set)<-table
 mult<-msa(string_set)
-```
+
 
 
 ```{r}
@@ -221,5 +214,30 @@ dendogram<-IdClusters(d, method="complete", cutoff=0.05, showPlot=FALSE,type="de
                 cex = 0.7, col = "black")
 #plot results 
 plot(as.dendrogram(dendogram), ylab = "Height", nodePar =nodePar,main="igsf1")
-  
+```
+The differences sequence-wise seem to be minor when looking at such a narrow scope and small subsection of dogs. Thankfully there is also expression data for the genes studied which covers more dog-breeds, depicted below
+
+```{r, out.width = "200px", echo=F}
+knitr::include_graphics(c("small coll.png","large coll.png"))
+```
+```{r}
+#expression data 
+expression<-read_excel("dog snps.xlsx",sheet="IGF1")
+myColors <- c("antiquewhite4", " coral3", "darkgoldenrod4","darkcyan", "darkorchid4")
+p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(y="Weight of Dog (kg)", x = "Expression of IGF1")+ggtitle("IGF1 Expression by dog weight (grouped by dog size)")
+p+scale_color_manual(values=myColors)
+```
+
+
+```{r}
+expression<-read_excel("dog snps.xlsx",sheet="LCORL")
+p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)
+p+scale_color_manual(values=myColors)
+```
+
+
+```{r}
+expression<-read_excel("dog snps.xlsx",sheet="SMAD2")
+p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)
+p+scale_color_manual(values=myColors)
 ```
