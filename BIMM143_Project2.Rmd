@@ -38,12 +38,15 @@ If you examine canine breeds, then breeds of a similar size (e.g.Cocker Spaniel,
 
 - EDA: Scatterplots of SNP nucleotide vs size to check for visible trends before analysis
 - Multiple Sequence Alignment (of SNP+border sequences), which was then visualized with msaPrettyPrint()
-_ Clustering of MSA results, which were visualized as Dendrograms 
+- Clustering of MSA results, which were visualized as Dendrograms 
 
 ### Gene Fragments:
 
 - Multiple Sequence Alignment (of SNP+border sequences), which was then visualized with msaPrettyPrint()
 _ Clustering of MSA results, which were visualized as Dendrograms 
+
+### Expression data:
+- EDA: see if expression, not changes in snps is the reason behind differences 
 
 ### Data Sourcing 
 
