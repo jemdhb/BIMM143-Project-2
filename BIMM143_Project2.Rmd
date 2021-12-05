@@ -63,8 +63,8 @@ library("DECIPHER")
 library('dendextend')
 ```
 
-```{r, out.width = "100px", fig.cap="Basenji (S)",fig.align="center"}
 
+```{r, out.width = "200px", echo=F}
 knitr::include_graphics("dog/My_Post1.jpg")
 ```
 
