@@ -65,32 +65,8 @@ library('dendextend')
 
 ```{r, out.width = "100px", fig.cap="Basenji (S)",fig.align="center"}
 
-knitr::include_graphics("dog/Basenji.jpg")
+knitr::include_graphics("dog/My_Post1.jpg")
 ```
-```{r, out.width = "200px", fig.cap="Boxer (L)",fig.align="center"}
-knitr::include_graphics("dog/Boxer.jpg")
-
-
-```
-```{r, out.width = "200px", fig.cap="Great Dane (XL)",fig.align="center"}
-knitr::include_graphics("dog/greatdane.jpg")
-
-
-``` 
-```{r, fig.width=.5, fig.height=7, fig.align="center",fig.cap="Golden Retriever (L)"}
-
-knitr::include_graphics("dog/labret.jpg")
-
-```
-```{r, fig.cap="German Shepherd (L)",fig.align="center"}
-
-
-knitr::include_graphics("dog/german_sheperd.jpg")
-
-
-```
-
-
 
 ```{r}
 #global variable
