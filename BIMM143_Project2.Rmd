@@ -77,7 +77,7 @@ First we will be performing MSA and clustering with various sequence data (SNPS 
 ```{r, out.width = "200px", echo=F}
 knitr::include_graphics("dog/My_Post1.jpg")
 ```
-
+Function definitions 
 ```{r}
 #global variable
 alignment_name<<-""
@@ -118,7 +118,7 @@ mult_alingments<-function(file_name,fasta_names,name,big_aln=FALSE,dna_set=TRUE)
 return(alignment_name)
 }
 #have figure with white background, no gridline and only axis ticks, no lines
-tune_figure<-function(fig,addons){
+tune_figure<-function(fig){
   return(fig+theme_minimal()+theme(
     plot.background = element_blank(),
     panel.grid.major = element_blank(),
@@ -143,23 +143,25 @@ plot(as.dendrogram(dendogram), ylab = "Height", nodePar =nodePar,main=fig_title)
   return(as.dendrogram(dendogram))
 }
 ```
+EDA of Sequence data 
 ```{r}
 #visualize size breakdown of dogs
 snps<-read_excel("dog snps.xlsx")
 #fix ordering of legend
 snps$Name <- factor(snps$Name, levels = c("Basenji", "Boxer", "German_Shepherd","Labrador_retriever","Great_Dane"))
 p<-ggplot(data = snps, aes(size))+scale_x_discrete(limits = c("S","L","XL"))+geom_bar(aes(fill = Name))+scale_fill_manual(values = c("deepskyblue4","brown2","brown","brown4","darkseagreen4"))
-tune_figure(p,add_ons)
+tune_figure(p)
 ```
 
 
-LCORL Analysis 
-
+LCORL Sequence Analysis 
+SNP scatterplot, see if any obvious trends
 ```{r}
 #visualize LCORL SNP by size 
 p<-ggplot(data = snps, mapping = aes(y=lcorl,x=size_num))+geom_point(size=4,alpha=0.6,color="darkseagreen4")+ labs(y="LCORL Nucleotide", x = "Dog Size")+ggtitle("LCORL SNP Distribution by Dog Size")
 p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
 ```
+LCORL alignment, see if size-grouping is obvious
 ```{r}
 #LCORL CALL
 alignment<-mult_alingments("fasta/LCORL_file.txt","fasta/names.txt","LCORL")
@@ -169,11 +171,13 @@ print(alignment_name)
 #view pdf
 knitr::include_graphics(alignment_name)
 ```
+LCORL clusters, see if group by dog size 
 ```{r}
 #Cluster LCORL extended fragment 
 create_dendogram("fasta/LCORL_file.txt", "fasta/names.txt", "LCORL Extended Fragment Dendogram")
 ```
-#IGF1 ANALYSIS
+IGF1 ANALYSIS
+EDA of IGF1 SNP, see if are any obvious trendds 
 ```{r}
 abbrev_x <- c("A","C","'G","'T")
 print(length(abbrev_x))
@@ -183,6 +187,7 @@ p<-ggplot(data = snps, mapping = aes(y=igf1,x=size_num))+geom_point(size=4,alpha
 p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
 
 ```
+IGF1 Alignment, see if size-grouping is obvious
 ```{r}
 #IGF1 CALL
 alignment<-mult_alingments("fasta/igf1.fasta","fasta/igf1_names.txt","igf1")
@@ -193,12 +198,13 @@ knitr::include_graphics(alignment_name)
 ```
 http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-must-known-methods-unsupervised-machine-learning#plot.dendrogram-function for look and non cut off stuff
 
+IGF1 Clustering, see if size-grouping is obvious
 ```{r}
 #Cluster IGF1 extended fragment 
 create_dendogram("fasta/igf1.fasta", "fasta/igf1_names.txt", "IGF1 Extended Fragment Dendogram")
 ```
 
-IGSF1 ANALYSIS 
+IGSF1 ANALYSIS, add back in for final submit 
 
 #string_set<-readAAStringSet(file="fasta/IGSF1.fasta",use.names=TRUE)
 #read in seq names as list 
@@ -224,7 +230,7 @@ IGSF1 ANALYSIS
 #plot results 
 #plot(as.dendrogram(dendogram), ylab = "Height", nodePar =nodePar,main="igsf1")
 ```
-The differences sequence-wise seem to be minor when looking at such a narrow scope and small subsection of dogs. Thankfully there is also expression data for the genes studied which covers more dog-breeds, depicted below
+The differences sequence-wise seems to be minor when looking at such a narrow scope and small subsection of dogs. Thankfully there is also expression data for the genes studied which covers more dog-breeds, depicted below
 
 
 ```{r, out.width = "200px", echo=F}
@@ -235,6 +241,21 @@ knitr::include_graphics("small_coll.png")
 ```{r, out.width = "200px", echo=F}
 knitr::include_graphics("large_coll.png")
 ```
+EDA of expression data, see size distribution of dogs 
+```{r}
+myColors <- c("antiquewhite4", " coral3", "darkgoldenrod4","darkcyan", "darkorchid4")
+
+#visualize size breakdown of dogs
+expression<-read_excel("dog snps.xlsx",sheet="IGF1")
+#fix ordering of bars
+expression$size <- factor(expression$size, levels = c("xs","s","m","l","xl"))
+
+p<-ggplot(data = expression, aes(size))+geom_bar(aes(fill = size))+scale_fill_manual(values =myColors)
+#clean up barplot
+tune_figure(p)
+```
+Distribution much more balanced than sequence data, but favors small dogs 
+
 ```{r}
 #expression data 
 expression<-read_excel("dog snps.xlsx",sheet="IGF1")
@@ -243,14 +264,14 @@ p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,co
 p+scale_color_manual(values=myColors)
 ```
 
-
+LCORL had two expression sets for each dog, so i included both 
 ```{r}
 expression<-read_excel("dog snps.xlsx",sheet="LCORL")
 p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(y="Weight of Dog (kg)", x = "Expression of LCORL")+ggtitle("LCORL Expression by Dog Weight (grouped by dog size)")
 p+scale_color_manual(values=myColors)
 ```
 
-
+igsf1 has no gene exp data so i swapped to smad2 which has similar function (smad2 is too long to align so it works out)
 ```{r}
 expression<-read_excel("dog snps.xlsx",sheet="SMAD2")
 p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(y="Weight of Dog (kg)", x = "Expression of SMAD2")+ggtitle("SMAD2 Expression by Dog Weight (grouped by dog size)")
