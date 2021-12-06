@@ -16,7 +16,7 @@ Introduction (40 points)
 - 10 points for specific, measurable, and clear scientific question
 
 ### Scientific Question
-
+#just add the 4
 When examining dog breeds (canis lupus familiaris), will breeds of a similar size (e.g. Cocker Spaniel, English Cocker Spaniel) have more related genes and SNP's surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher)? Will these differences results in expression changes between breeds of different sizes?
 
 Note: I only selected 4 genes most closely associated with life span (IGF1, IGSF1, LCORL,and SMAD2). There are more genes involved in this, but these are the most significant.
@@ -82,6 +82,7 @@ Function definitions
 ```{r}
 #global variable
 alignment_name<<-""
+myColors <- c("antiquewhite4", " coral3", "darkgoldenrod4","darkcyan", "darkorchid4")
 
 #notebook functions
 
@@ -171,10 +172,15 @@ SNP scatterplot, see if any obvious trends
 ```{r}
 #visualize LCORL SNP by size 
 p<-ggplot(data = snps, mapping = aes(y=lcorl,x=size_num))+geom_point(size=4,
-  alpha=0.6,color="darkseagreen4")+ labs(y="LCORL Nucleotide", x = "Dog Size")+
+  alpha=0.6,color="darkseagreen4")+
   ggtitle("LCORL SNP Distribution by Dog Size")
 #add jitter so points don't sit on top of each other 
 p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
+# pie chart instead of scatter plor for dist 
+
+pies<-read_excel("dog snps.xlsx",sheet="pie")
+pie(pies$lcorl,labels=pies$Name,col=myColors)
+
 ```
 LCORL alignment, see if size-grouping is obvious
 ```{r}
@@ -190,16 +196,14 @@ LCORL clusters, see if group by dog size
 ```{r}
 #Cluster LCORL extended fragment 
 create_dendrogram("fasta/LCORL_file.txt", "fasta/names.txt", "LCORL Extended Fragment Dendogram")
+#may not be pure breeds
+#try and figure out if regions are correct 
 ```
 IGF1 ANALYSIS
 EDA of IGF1 SNP, see if are any obvious trendds 
 ```{r}
-abbrev_x <- c("A","C","'G","'T")
-print(length(abbrev_x))
-print(length(seq(0,4,by=1)))
-#visualize IGF1 SNP by size 
-p<-ggplot(data = snps, mapping = aes(y=igf1,x=size_num))+geom_point(size=4,alpha=0.6,color="darkseagreen4")+labs(y="IGF1 Nucleotide", x = "Dog Size")+ggtitle("IGF1 SNP Distribution by Dog Size")
-p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
+pies<-read_excel("dog snps.xlsx",sheet="pie")
+pie(pies$igf1,labels=pies$Name,col=myColors)
 
 ```
 IGF1 Alignment, see if size-grouping is obvious
@@ -254,7 +258,6 @@ knitr::include_graphics("large_coll.png")
 ```
 EDA of expression data, see size distribution of dogs 
 ```{r}
-myColors <- c("antiquewhite4", " coral3", "darkgoldenrod4","darkcyan", "darkorchid4")
 
 #visualize size breakdown of dogs
 expression<-read_excel("dog snps.xlsx",sheet="IGF1")
