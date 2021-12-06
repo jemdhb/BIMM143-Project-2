@@ -17,36 +17,35 @@ Introduction (40 points)
 
 ### Scientific Question
 
-When examining dog breeds (canis lupus familiaris), will breeds of a similar size (e.g. Cocker Spaniel, English Cocker Spaniel) have more related genes and SNP's surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher)?
+When examining dog breeds (canis lupus familiaris), will breeds of a similar size (e.g. Cocker Spaniel, English Cocker Spaniel) have more related genes and SNP's surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher)? Will these differences results in expression changes between breeds of different sizes?
 
-Note: I only selected 6 genes most closely associated with life span (HMGA2 , IGF1 (done) , IGSF1 (too big), IRS4 (too big), LCORL (done),and SMAD2 (too big) ). There are more genes involved in this, but these are the most significant.
+Note: I only selected 4 genes most closely associated with life span (IGF1, IGSF1, LCORL,and SMAD2). There are more genes involved in this, but these are the most significant.
 
-Note: Size will be determined by the AKC. You can filter by all AKC recognized dog breeds by size. This is categorical data; if it is easier for me to work with numerical instead, I will instead use the ideal height and weight, as outlined in the official standard of each breed. 
+Note: Size will be determined by the American Kennel Club (AKC). You can filter by all AKC recognized dog breeds by size. This is categorical data; if it is easier for me to work with numerical instead, I will instead use the ideal height and weight, as outlined in the official standard of each breed. 
 
-:when possible used regions by paper
-if regions too big used dimension of genes on ncbi 
 
 - 10 points for clear, specific, and measurable scientific hypothesis that is in the form of an if-then statement
 
 ### Scientific Hypothesis
-If you examine canine breeds, then breeds of a similar size (e.g.Cocker Spaniel,English Cocker Spaniel) they will have more related SNPs and or fragments of genes surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher).
+If you examine canine breeds, then breeds of a similar size (e.g.Cocker Spaniel,English Cocker Spaniel) they will have more related SNPs and/or fragments of genes surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher). Changes in these SNPs and gene fragments will results in expressional changes between breeds. 
 
 - 10 points for description of what analyses were done and how the data was downloaded for the project
 ## Analysis Performed:
 
 ### SNP's 
 
-- EDA: Scatterplots of SNP nucleotide vs size to check for visible trends before analysis
+- Exploratory Data Analysis (EDA): Scatterplots of SNP nucleotide vs size to check for visible trends before analysis
 - Multiple Sequence Alignment (of SNP+border sequences), which was then visualized with msaPrettyPrint()
-- Clustering of MSA results, which were visualized as Dendrograms 
+- Clustering of MSA results, which were visualized as dendrograms 
 
 ### Gene Fragments:
 
 - Multiple Sequence Alignment (of SNP+border sequences), which was then visualized with msaPrettyPrint()
-_ Clustering of MSA results, which were visualized as Dendrograms 
+_ Clustering of MSA results, which were visualized as dendrograms 
 
 ### Expression data:
-- EDA: see if expression, not changes in snps is the reason behind differences 
+- EDA: see if expression, not changes in snps is the reason behind differences
+- perform clustering of expression data, visualized as dendrograms
 
 ### Data Sourcing 
 
@@ -61,6 +60,8 @@ _ Data downloads:
 library("BiocManager")
 #for reading in excel files
 library("readxl")
+#change readxl to this one
+library("xlsx") 
 #for multiple sequence alignment 
 library("msa")
 #for msa pretty print 
@@ -84,13 +85,19 @@ alignment_name<<-""
 
 #notebook functions
 
-#align fasta from file_name with names from name file (visualization purposes) after alignment displays msaprettyprint results for human readable data
-mult_alingments<-function(file_name,fasta_names,name,big_aln=FALSE,dna_set=TRUE){
+#multi_alignments align fasta depending on inputs, returns msaprettyprint alignment or plaintext alignment. 
+#file_name: fasta file to be read in 
+#fasta_names: names to display for prettyprint alignment, "names" in file_name files are entire paragraphs 
+#big_aln: determines if msaprettyprint is run (True=run return pdf name for display by knitr, False=return alignment as is) since it cant handle larger sequences.
+#dna_set: determines how the fasta data is read in (True=DNA, False=Amino Acid) this speeds up alignments of larger sequences
+mult_alignments<-function(file_name,fasta_names,name,big_aln=FALSE,dna_set=TRUE){
   
   #read in fasta for all dogs
+  #use DNA for small files 
   if(dna_set=="TRUE"){
   string_set<-readDNAStringSet(file=file_name,use.names=FALSE)
   }
+  #AA for large files
   else{
       string_set<-readAAStringSet(file=file_name,use.names=FALSE)
 
@@ -115,9 +122,11 @@ mult_alingments<-function(file_name,fasta_names,name,big_aln=FALSE,dna_set=TRUE)
   msaPrettyPrint(alignment, file=alignment_name,output="pdf",
                  showNames="right",showLogo="top",askForOverwrite=FALSE,
                  showNumbering="none",paperWidth=6,paperHeight=3)
+#return 
 return(alignment_name)
 }
-#have figure with white background, no gridline and only axis ticks, no lines
+#have figure with white background, no gridline and only ticks along x and y axis
+#fig: ggplot to be altered
 tune_figure<-function(fig){
   return(fig+theme_minimal()+theme(
     plot.background = element_blank(),
@@ -126,7 +135,9 @@ tune_figure<-function(fig){
     panel.border = element_blank()))
 }
 #create dendogram based on fasta files, names of items clustered in fasta_names
-create_dendogram<-function(fasta_path, fasta_names, fig_title){
+#fasta_path: path to fasta file 
+#fasta_names: path to names to display on dendrogram
+create_dendrogram<-function(fasta_path, fasta_names, fig_title){
   #grab DNA info from coallated file
   dna <- string_set<-readDNAStringSet(file=fasta_path,use.names=FALSE)
   #get sequence names
@@ -134,7 +145,8 @@ create_dendogram<-function(fasta_path, fasta_names, fig_title){
   #create distance matrix for clustering 
   d1 <- DistanceMatrix(dna, type="dist")
   #form dendogram
-  dendogram<-IdClusters(d1, method="complete", cutoff=0.05, showPlot=FALSE,type="dendrogram")
+  dendogram<-IdClusters(d1, method="complete", cutoff=0.05, showPlot=FALSE,
+                        type="dendrogram")
   #fix names being cut-off
   nodePar <- list(lab.cex = 0.6, pch = c(NA, 19), 
                 cex = 0.7, col = "black")
@@ -158,13 +170,16 @@ LCORL Sequence Analysis
 SNP scatterplot, see if any obvious trends
 ```{r}
 #visualize LCORL SNP by size 
-p<-ggplot(data = snps, mapping = aes(y=lcorl,x=size_num))+geom_point(size=4,alpha=0.6,color="darkseagreen4")+ labs(y="LCORL Nucleotide", x = "Dog Size")+ggtitle("LCORL SNP Distribution by Dog Size")
+p<-ggplot(data = snps, mapping = aes(y=lcorl,x=size_num))+geom_point(size=4,
+  alpha=0.6,color="darkseagreen4")+ labs(y="LCORL Nucleotide", x = "Dog Size")+
+  ggtitle("LCORL SNP Distribution by Dog Size")
+#add jitter so points don't sit on top of each other 
 p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
 ```
 LCORL alignment, see if size-grouping is obvious
 ```{r}
 #LCORL CALL
-alignment<-mult_alingments("fasta/LCORL_file.txt","fasta/names.txt","LCORL")
+alignment<-mult_alignments("fasta/LCORL_file.txt","fasta/names.txt","LCORL")
 print(alignment_name)
 ```
 ```{r, echo=F}
@@ -174,7 +189,7 @@ knitr::include_graphics(alignment_name)
 LCORL clusters, see if group by dog size 
 ```{r}
 #Cluster LCORL extended fragment 
-create_dendogram("fasta/LCORL_file.txt", "fasta/names.txt", "LCORL Extended Fragment Dendogram")
+create_dendrogram("fasta/LCORL_file.txt", "fasta/names.txt", "LCORL Extended Fragment Dendogram")
 ```
 IGF1 ANALYSIS
 EDA of IGF1 SNP, see if are any obvious trendds 
@@ -190,7 +205,7 @@ p+geom_jitter(size=4,alpha=0.6,color="darkseagreen4")
 IGF1 Alignment, see if size-grouping is obvious
 ```{r}
 #IGF1 CALL
-alignment<-mult_alingments("fasta/igf1.fasta","fasta/igf1_names.txt","igf1")
+alignment<-mult_alignments("fasta/igf1.fasta","fasta/igf1_names.txt","igf1")
 ```
 ```{r, echo=F}
 #view pdf
@@ -201,34 +216,30 @@ http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-mus
 IGF1 Clustering, see if size-grouping is obvious
 ```{r}
 #Cluster IGF1 extended fragment 
-create_dendogram("fasta/igf1.fasta", "fasta/igf1_names.txt", "IGF1 Extended Fragment Dendogram")
+create_dendrogram("fasta/igf1.fasta", "fasta/igf1_names.txt", "IGF1 Extended Fragment Dendogram")
 ```
 
 IGSF1 ANALYSIS, add back in for final submit 
 
-#string_set<-readAAStringSet(file="fasta/IGSF1.fasta",use.names=TRUE)
-#read in seq names as list 
-#table=read.table("fasta/IGSF1_names.txt", header = FALSE, sep = "\n")[["V1"]]
-#update names for pretty print
-#names(string_set)<-table
-#mult<-msa(string_set)
 
 ```{r}
-
-#library(seqinr)
-#library(ape)
+library(seqinr)
+library(ape)
 
 #takes too long to run, will add in final submission
-#igsf1<-mult_alingments("fasta/IGSF1.fasta","fasta/IGSF1_names.txt","IGSF1",TRUE,FALSE)
+igsf1<-mult_alignments("fasta/IGSF1.fasta","fasta/IGSF1_names.txt","IGSF1",TRUE,FALSE)
+```
 
-#igsf1_aln <- msaConvert(igsf1, type="seqinr::alignment")
-#d <- dist.alignment(igsf1_aln, "identity")
-#dendogram<-IdClusters(d, method="complete", cutoff=0.05, showPlot=FALSE,type="dendrogram")
+
+```{r}
+igsf1_aln <- msaConvert(igsf1, type="seqinr::alignment")
+d <- dist.alignment(igsf1_aln, "identity")
+dendogram<-IdClusters(d, method="complete", cutoff=0.05, showPlot=FALSE,type="dendrogram")
   #fix names being cut-off
- # nodePar <- list(lab.cex = 0.6, pch = c(NA, 19), 
-                #cex = 0.7, col = "black")
+  nodePar <- list(lab.cex = 0.6, pch = c(NA, 19), 
+                cex = 0.7, col = "black")
 #plot results 
-#plot(as.dendrogram(dendogram), ylab = "Height", nodePar =nodePar,main="igsf1")
+plot(as.dendrogram(dendogram), ylab = "Height", nodePar =nodePar,main="igsf1")
 ```
 The differences sequence-wise seems to be minor when looking at such a narrow scope and small subsection of dogs. Thankfully there is also expression data for the genes studied which covers more dog-breeds, depicted below
 
@@ -260,20 +271,46 @@ Distribution much more balanced than sequence data, but favors small dogs
 #expression data 
 expression<-read_excel("dog snps.xlsx",sheet="IGF1")
 myColors <- c("antiquewhite4", " coral3", "darkgoldenrod4","darkcyan", "darkorchid4")
-p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(y="Weight of Dog (kg)", x = "Expression of IGF1")+ggtitle("IGF1 Expression by Dog Weight (grouped by dog size)")
-p+scale_color_manual(values=myColors)
+p<-ggplot(data = expression, mapping = aes_string(y="norm_exp",x="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(x="Weight of Dog (kg)", y = "Expression of IGF1")+ggtitle("IGF1 Expression by Dog Weight (grouped by dog size)")
+p+scale_color_manual(values=myColors)+geom_smooth(method = "lm" ,aes(group=1),color="black",alpha=0.6,se=TRUE)
 ```
 
 LCORL had two expression sets for each dog, so i included both 
 ```{r}
 expression<-read_excel("dog snps.xlsx",sheet="LCORL")
-p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(y="Weight of Dog (kg)", x = "Expression of LCORL")+ggtitle("LCORL Expression by Dog Weight (grouped by dog size)")
-p+scale_color_manual(values=myColors)
+p<-ggplot(data = expression, mapping = aes_string(y="norm_exp",x="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(x="Weight of Dog (kg)", y = "Expression of LCORL")+ggtitle("LCORL Expression by Dog Weight (grouped by dog size)")
+p+scale_color_manual(values=myColors) +geom_smooth(method = "lm" ,aes(group=1),color="black",alpha=0.6,se=TRUE)
+
 ```
 
-igsf1 has no gene exp data so i swapped to smad2 which has similar function (smad2 is too long to align so it works out)
+igsf1 has no gene exp data so i swapped to smad2
 ```{r}
 expression<-read_excel("dog snps.xlsx",sheet="SMAD2")
-p<-ggplot(data = expression, mapping = aes_string(x="norm_exp",y="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(y="Weight of Dog (kg)", x = "Expression of SMAD2")+ggtitle("SMAD2 Expression by Dog Weight (grouped by dog size)")
-p+scale_color_manual(values=myColors)
+p<-ggplot(data = expression, mapping = aes_string(y="norm_exp",x="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(x="Weight of Dog (kg)", y = "Expression of SMAD2")+ggtitle("SMAD2 Expression by Dog Weight (grouped by dog size)")
+p+scale_color_manual(values=myColors)+   geom_smooth(method = "lm" ,aes(group=1),color="black",alpha=0.6,se=TRUE)
+
+
+
 ```
+
+
+```{r}
+clusters<-read.xlsx2("dog snps.xlsx",row.names=1,sheetName="clustering")
+d <- dist(clusters, method = "euclidean") # distance matrix
+fit <- hclust(d, method="complete")
+plot(fit) # display dendogram
+groups <- cutree(fit, k=4) # cut tree into 5 clusters
+#fix names being cut-off
+nodePar <- list(lab.cex = 0.6, pch = c(NA, 19), 
+                cex = 0.7, col = "black")
+plot(fit, cex = 0.6, hang = -1,nodePar =nodePar)
+rect.hclust(fit, k=4, border="red")
+```
+
+```{r}
+expression<-read_excel("dog snps.xlsx",sheet="scatter")
+p<-ggplot(data = expression, mapping = aes_string(y="norm_exp",x="weight_kg" ,col= "size"))+geom_point(size=4,alpha=0.6)+ labs(x="Weight of Dog (kg)", y = "Expression of SMAD2, IGF1,LCORL")+ggtitle("SMAD2, IGF1,LCORL Expression by Dog Weight (grouped by dog size)")
+p+scale_color_manual(values=myColors)+geom_smooth(method = "lm" ,aes(group=1),color="black",alpha=0.6,se=TRUE)
+```
+
+
