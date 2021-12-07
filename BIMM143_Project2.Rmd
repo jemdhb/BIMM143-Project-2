@@ -10,17 +10,15 @@ Introduction (40 points)
 
 ## Introduction
 
-- 10 points for specific, measurable, and clear scientific question
-
 ### Scientific Question
-When examining dog breeds (canis lupus familiaris), will breeds of a similar size (e.g. Cocker Spaniel, English Cocker Spaniel) have more related genes (IGF1, IGSF1, LCORL, and SMAD2) and SNP's surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher)? Will these differences results in expression changes between breeds of different sizes?
+When examining dog breeds (Canis lupus familiars), will breeds of a similar size (e.g. Cocker Spaniel, English Cocker Spaniel) have more related genes (IGF1, IGSF1, LCORL, and SMAD2) and SNPs surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher)? Will these differences results in expression changes between breeds of different sizes?
 
 *Note: I selected 4 genes closely associated with life span (IGF1, IGSF1, LCORL,and SMAD2). There are more genes involved than this. Breed size will be determined by the American Kennel Club (AKC). You can filter by all AKC recognized dog breeds by size on their website: https://www.akc.org/dog-breeds/.* 
 
 - 10 points for background on the protein/gene/species of interest and where the data is sourced from
 
-### Species of interest: Canis lupus familiaris and longevity
-**Canis lupus familiaris** or the domestic dog, is the most phenotypically variable mammal on earth. This phenotypic variation is due to the intense selection that humans have imposed on dogs for the past XXX years that we have been coexisting together. But this wide phenotypic variation does more than make dogs cuter or more usable for humans. Variation in dog size in particular, has a huge effect on the longevity of the dog.  
+### Species of interest: Canis lupus familiaris 
+**Canis lupus familiars** or the domestic dog, is the most phenotypically variable mammal on earth. This phenotypic variation is due to the intense selection that humans have imposed on dogs for the thousands of years we have been coexisting. But this wide phenotypic variation does more than make dogs cuter or more usable for humans. Variation in dog size in particular, has a huge effect on the longevity of the dog.  
 
 ### Gene of interest: LCORL
 **LCORL** or Ligand Dependent Nuclear Receptor Corepressor Like. This gene encodes a transcription factor which functions in spermatogenesis. Polymorphisms of this gene are associated with changes in skeletal frame size and height. (https://www.genecards.org/cgi-bin/carddisp.pl?gene=LCORL)
@@ -29,7 +27,7 @@ When examining dog breeds (canis lupus familiaris), will breeds of a similar siz
 **IGF1** or Insulin Like Growth Factor 1. This gene encodes a protein similar to insulin (functionally and structurally) and is involved in mediating growth and development. (https://www.genecards.org/cgi-bin/carddisp.pl?gene=IGF1&keywords=IGF1)
 
 ### Gene of interest: IGSF1
-**IGSF1** or Immunoglobulin Superfamily Member 1. This gene encodes a member of the immunoglobulin-like domain-containing superfamily. It contains various immunoglobulin-like domains thought to  regulate interactions between cells. (https://www.genecards.org/cgi-bin/carddisp.pl?gene=IGSF1&keywords=IGsF1)
+**IGSF1** or Immunoglobulin Super family Member 1. This gene encodes a member of the immunoglobulin-like domain-containing super family. It contains various immunoglobulin-like domains thought to  regulate interactions between cells. (https://www.genecards.org/cgi-bin/carddisp.pl?gene=IGSF1&keywords=IGsF1)
 
 
 ### Gene of interest: SMAD2
@@ -38,7 +36,7 @@ When examining dog breeds (canis lupus familiaris), will breeds of a similar siz
 - 10 points for clear, specific, and measurable scientific hypothesis that is in the form of an if-then statement
 
 ### Scientific Hypothesis
-If you examine canine breeds, then breeds of a similar size (e.g.Cocker Spaniel,English Cocker Spaniel) they will have more related SNPs and/or fragments of genes surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher). Changes in these SNPs and gene fragments will results in expressional changes between breeds. 
+If you examine canine breeds, then breeds of a similar size (e.g.Cocker Spaniel,English Cocker Spaniel) they will have more related SNPs and/or fragments of genes surrounding longevity than breeds of a different size (e.g.Doberman Pinscher,Miniature Pinscher). Changes in these SNPs and gene fragments will results in expression changes between breeds. 
 
 ## Analysis Performed:
 
@@ -49,7 +47,7 @@ If you examine canine breeds, then breeds of a similar size (e.g.Cocker Spaniel,
 - Clustering of MSA results, which were visualized as dendrograms 
 
 ### Gene analysis:
-- Multiple Sequence Alignment-->Clustering: multiple sequence alignment (MSA) was performed on the genes. These alignments were converted into a data format feasible to cacluate a distance matrix from (and thus clustering) msaConvert(). Clustering was performed on this processed data and then visualized as a dendrogram. 
+- Multiple Sequence Alignment-->Clustering: multiple sequence alignment (MSA) was performed on the genes. These alignments were converted into a data format feasible to calculate a distance matrix from (and thus clustering) msaConvert(). Clustering was performed on this processed data and then visualized as a dendrogram. 
 
 ### Gene expression data:
 - EDA: Scatter plots with regression lines were utilized see if expression, not changes in SNPs are the reason behind differences in longevity based on dog size. 
@@ -67,7 +65,7 @@ The ideal positions to perform our MSA and clustering at were determined by tabl
 First search up your gene of interest + "dog" (Example search for IGSF1 https://www.ncbi.nlm.nih.gov/gene/?term=IGSF1+dog). Select the relevant result. Under "Genomic regions, transcripts, and products" will be the 6 possible reference genomes. Select the reference genome of interest from the drop down menu and then select "FASTA" from the "Go to nucleotide" menu. Once you are viewing the reference sequence, change "Change region shown" to "Selected region" and enter your coordinates of choice. "Update view" must then be selected for this change to take place. Once the proper region is visualized, you can download this sequence to your local machine with "Send to", "complete record", and your file extension of choice (I used .fasta). 
 
 - Gene expression data for clustering:
-This gene expression data was extracted from the "Source Data" file from  Plassais' 2019 paper on whole genome sequence analysis on canines (https://www.nature.com/articles/s41467-019-09373-w/tables/2#ref-CR35). The expression is on the S4-S6 sheet. I removed the genes that I did not examine during prior steps. I then shifted the organization of the to better work for clustering (eg made the dog breed the row names and added expression results as column data making a dataframe with fewer rows and more columns), altering no numbers in the process. Since the breed names were listed without size data, I manually added in each breeds AKC size designation. This labeling makes interpreting our dendrograms much simpler down the line. 
+This gene expression data was extracted from the "Source Data" file from  Plassais' 2019 paper on whole genome sequence analysis on canines (https://www.nature.com/articles/s41467-019-09373-w/tables/2#ref-CR35). The expression is on the S4-S6 sheet. I removed the genes that I did not examine during prior steps. I then shifted the organization of the to better work for clustering (eg made the dog breed the row names and added expression results as column data making a data frame with fewer rows and more columns), altering no numbers in the process. Since the breed names were listed without size data, I manually added in each breeds AKC size designation. This labeling makes interpreting our dendrograms much simpler down the line. 
 
 - 25 points for definition of each of the packages loaded 
 - 5 points for correctly loading all of the packages needed
@@ -75,7 +73,7 @@ This gene expression data was extracted from the "Source Data" file from  Plassa
 ### Package definitions
 Before running our code numerous packages must be loaded in, below is a short summary of their general purpose and their purpose in the scope of my Project 2
 
-**Check if needed**1) BiocManager:. For the purposes of my project, BiocManager is used to read in fasta files as DNAstringsets or AAstringsets.
+1) BiocManager:. For the purposes of my project, BiocManager is used to read in fasta files as DNAstringsets or AAstringsets.
 
 2) readxl: A package to import excel files into R. For the purposes of my project, readxl is used to read in excel data with only one sheet.
 
@@ -83,13 +81,16 @@ Before running our code numerous packages must be loaded in, below is a short su
 
 4) msa: A package containing an interface for three multiple sequence alignment algorithms (CLUSTALW, CLUSTALOmega, and MUSCLE). For the purposes of my project, msa is used to perform multiple sequence alignment on our genes and SNPs of interest and visualization of these resulting alignments
 
-5) tinytex: A custom LaTeX distribution for R. For the purposes of my project, tinytex is used for my msaprettyprint output. 
+5) tinytex: A custom La TeX distribution for R. For the purposes of my project, tinytex is used for my msaprettyprint output. 
 
-6) ggplot2: A system to create graphics declaratively or piece-by-piece, this allows for a great amount of customization. For the purposes of my project, ggplot is used to visualize a lot of my exploratory data analysis (breakdown of dog populations and expression data)
+6) ggplot2: A system to create graphics declarative or piece-by-piece, this allows for a great amount of customization. For the purposes of my project, ggplot is used to visualize a lot of my exploratory data analysis (breakdown of dog populations and expression data)
 
-7) DECIPHER:. For the purposes of my project, DECIPHER is used to cluster dna sequences and form their resutlting dendrograms 
+7) DECIPHER:. For the purposes of my project, DECIPHER is used to cluster DNA sequences and form their resulting dendrograms 
 
 8) dendextend: A package which extends the functionality of dendrogram objects in R through tree vs. tree comparisons and extensive graphical customization of dendrograms. For the purposes of my project dendextend is used to fine tune my dendrograms (color by cluster group, prevent breed names being cut off, control branch height, adding titles). 
+9) seqinr: A package which performs EDA and data visualization for biological sequence data. For the purposes of my project, I will use seqinr to convert msa alignments to seqinr alignments, allowing me to create distance matrices from them
+
+10) ape: provides functions for reading, writing, manipulating, analyzing, and simulating phylogenetic trees and DNA sequences. For the purposes of my project ape will help convert msa alignments to seqinr alignments, allowing me to create distance matrices from them
 ```{r}
 #for reading in fasta files
 #library("BiocManager")
@@ -101,13 +102,16 @@ library("xlsx")
 library("msa")
 #for msa pretty print 
 library("tinytex")
-
 #visualization of results 
 library("ggplot2")
-#for clustering of DNA seqs 
+#for clustering of DNA sequences 
 library("DECIPHER")
-#for cleaning up dendograms
+#for cleaning up dendrograms
 library('dendextend')
+#for converting msa alignments to seqinr-msa alignments
+library("seqinr")
+#for converting msa alignments to seqinr-msa alignments
+library("ape")
 ```
 
 First we will be performing MSA and clustering with various sequence data (SNPS and gene fragments). Unfortunately, the scope of this data is limited to the 5 breeds shown below, and heavily weighs our analysis towards larger dogs. 
@@ -118,18 +122,18 @@ knitr::include_graphics("dog/My_Post1.jpg")
 Function definitions 
 
 ```{r}
-#global variable, used to read in msa alignment pdfs
+#global variable, used to read in msa alignment PDFs
 alignment_name<<-""
 
 myColors <- c("antiquewhite4", " coral3", "darkgoldenrod4","darkcyan", "darkorchid4")
 
 #notebook functions
 
-#mult_alignments: align fasta depending on inputs, returns msaprettyprint alignment or plaintext alignment. 
+#mult_alignments: align fasta depending on inputs, returns msaprettyprint alignment or plain text alignment. 
 #file_name: fasta file to be read in 
 #fasta_names: names to display for prettyprint alignment, "names" in file_name files are entire paragraphs 
 #big_aln: determines if msaprettyprint is run (True=run and return pdf name for display by knitr, False=return alignment as is). This is done because msaprettyprint cannot handle our larger sequences.
-#dna_set: determines how the fasta data is read in (True=DNA, False=Amino Acid) this speeds up alignments of larger sequences
+#DNA_set: determines how the fasta data is read in (True=DNA, False=Amino Acid) this speeds up alignments of larger sequences
 mult_alignments<-function(file_name,fasta_names,name,big_aln=FALSE,dna_set=TRUE){
   
   #read in fasta for all dogs
@@ -147,7 +151,7 @@ mult_alignments<-function(file_name,fasta_names,name,big_aln=FALSE,dna_set=TRUE)
   }
   
   #update names for pretty print display from  list which contains our shortened 
-  #sequences names read in from fasta_names, a .txt file with no headers and 
+  #sequences names read in from fasta_names, a .text file with no headers and 
   #variables separated by new lines
   names(string_set)<-read.table(fasta_names, header = FALSE, sep = "\n")[["V1"]]
   
@@ -168,8 +172,8 @@ mult_alignments<-function(file_name,fasta_names,name,big_aln=FALSE,dna_set=TRUE)
 #return 
 return(alignment_name)
 }
-#create figure with white background, no gridline and only ticks along x and y 
-#axis. Designed for barplot displays but should work with many other forms of ggplots
+#create figure with white background, no grid line and only ticks along x and y 
+#axis. Designed for bar plot displays but should work with many other forms of ggplots
 #fig: ggplot to be altered
 tune_figure<-function(fig){
   #builds changes based off of theme_minimal(). 
@@ -182,12 +186,12 @@ tune_figure<-function(fig){
     #removes x and y axis lines, keeping the ticks in place.
     panel.border = element_blank()))
 }
-#create dendogram based on fasta files, names of items clustered in fasta_names
+#create dendrogram based on fasta files, names of items clustered in fasta_names
 #fasta_path: path to fasta file 
 #fasta_names: path to names to display on dendrogram
 create_dendrogram<-function(fasta_path, fasta_names, fig_title){
   #grab DNA info from collated file
-  #dna is a local variable that contains the read in fasta file as a DNAStringSet. 
+  #DNA is a local variable that contains the read in fasta file as a DNAStringSet. 
   #The names are not read in due to their excessive length 
   dna <- string_set<-readDNAStringSet(file=fasta_path,use.names=FALSE)
   #update DNAStringSet sequences to have the shorter names read in from the 
@@ -263,11 +267,18 @@ Now lets move to multiple sequence alignment of our LCORL SNP, here we will use 
 alignment<-mult_alignments("fasta/LCORL_file.txt","fasta/names.txt","LCORL")
 print(alignment_name)
 ```
+
 Ok, now that we have performed MSA, lets read back in our sequence results for visualization purposes with knitr::include_graphics
 ```{r, out.width="600px",echo=F}
 #view pdf
 knitr::include_graphics(alignment_name)
 ```
+
+These alignments appear to be largely unrealated, it looks like msa introduces 4 indels into each sequence to get the center pieces to align. So what is being aligned in the middle of the sequences is often not the consensus sequence. There are several possible reasons for these results:
+
+- Even though this region was found to have the most variation among dog breeds of different sizes, this SNP, by nature, is not large enough to make an impact on clustering data. This can especially be by how msa shifts the SNPs off to the left of right to align together more of the trailing basepairs. 
+
+- The fasta data was misindexed. Since the provided positions do not notate the reference dog genome, I indexed the reference genomes on NCBI with the same position throughout. Thus the regions I chose to align and cluster may not be the correct region for all 6 breeds.
 
 Now we can cluster our LCORL data with the previously explained create_dendrogram. The leaves in this case will be the dog breed name alongside their AKC designated size 
 ```{r}
@@ -317,7 +328,8 @@ Ok, now that we have performed MSA, lets read back in our sequence results for v
 #view pdf
 knitr::include_graphics(alignment_name)
 ```
-http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-must-known-methods-unsupervised-machine-learning#plot.dendrogram-function for look and non cut off stuff
+
+The resulting MSAs appear to be largely unrealated. Just as they were in the case of LCORL, msa introduces 4 indels into each sequence to get the center pieces to align. So what is being aligned in the middle of the sequences is often not the consensus sequence. There are several possible reasons for these results are the same as the reasons listed under the LCORL alignment, as the issue here with the data is mechanical, not related to gene function or dog sizing in particular. 
 
 
 Now we can cluster our IGF1 data with the previously explained create_dendrogram. The leaves in this case will be the dog breed name alongside their AKC designated size 
@@ -336,17 +348,22 @@ The clustering by dog breed in this case appears to be inconclusive While the La
 
 - The fasta data was misindexed. Since the provided positions do not notate the reference dog genome, I indexed the reference genomes on NCBI with the same position throughout. Thus the regions I chose to align and cluster may not be the correct region for all 6 breeds. 
 
-IGSF1 ANALYSIS, add back in for final submit 
+Now we will move to analyzing IGSF1, where we will be utilizing the whole gene sequence in our analysis. This changes our data pipeline in comparison to IGF1 and LCORL.
 
-
-library(seqinr)
-library(ape)
-
-#takes too long to run, will add in final submission
+First utilize the mult_alignments function, but this time we set big_aln=TRUE which returns the alignment result without visualizing it (as the alignment exceeds msaprettyprint's character limit). We will also set dna_set=FALSE for then our data will align as an AA sequence. This greatly shortens the alignment run time. 
+```{r}
+#igsf1 call multiple sequence alignment helper function. Since IGSF1.fasta is a larger file, do not save a msaprettyprint output 
+#"IGSF1.fasta": contains our fasta data for each dog breeds SNP +/- 5 bp. "fasta/IGSF1_names.txt": contains the names of our sequence alignments to be used during msaprettyprint. "IGSF1" determines the name of the saved prettyprint call to be IGSF1.pdf. big_aln=TRUE returns the alignment result without visualizing it and dna_set=FALSE for then our data will align as an AA sequence. This greatly shortens the alignment run time. 
 igsf1<-mult_alignments("fasta/IGSF1.fasta","fasta/IGSF1_names.txt","IGSF1",TRUE,FALSE)
 ```
+
+Now that we have a multiple alignment we can use msaconvert() to shift this msa alignment into a seqinr alignment. This seqinr alignment will allow us to form a distance matrix of our data which we can then utilize IdClusters on, just like our previous SNP clusters did.
+```{r}
+#convert our msa alignment to a seqinr::alignment
 igsf1_aln <- msaConvert(igsf1, type="seqinr::alignment")
+#form a distance matrix from this new information
 d <- dist.alignment(igsf1_aln, "identity")
+#create a dendogram from the same function used for SNP clustering with the same defaults
 dendogram<-IdClusters(d, method="complete", cutoff=0.05, showPlot=FALSE,type="dendrogram")
   #fix names being cut-off
   nodePar <- list(lab.cex = 0.6, pch = c(NA, 19), 
@@ -355,7 +372,9 @@ dendogram<-IdClusters(d, method="complete", cutoff=0.05, showPlot=FALSE,type="de
 plot(as.dendrogram(dendogram), ylab = "Height", nodePar =nodePar,main="igsf1")
 ```
 
-### Clustering Analysis 
+This is our most promising dendrogram. There are two branches with two large dogs as their leaves (Boxer1, German Shepherd and Boxer2, Labrador Retriever). The dogs that have a different size classification (Great Dane, Basenji) are more distant ancestors to this large dog branches. The only inexplicable aspect of this data is how distantly related the two large dog branches are denoted as. A Possibility for this is that there are two distinct homozygous sequences of IGF1 that both produce large dogs. In the case of heterozygotes, the dog could instead be smaller or larger than the homozygous configuration.
+
+### Gene Expression Analysis 
 
 Through both alignment and clustering, differences between dogs sequence-wise seem to be insignificant when examining such a small subsection of dogs. Thankfully there is also expression data for the genes studied which covers more dog-breeds, depicted below.
 
@@ -439,14 +458,18 @@ This is probably the most promising result throughout the whole paper. Examining
 
 - Cluster #2: Is much more of a toss-up than cluster one. The grouping of the Yorkshire terrier (xs, weight=3.2) and the pug (s, weight=7.3) makes sense. The grouping of the German Shepherd (L, weight=38.6), French Bulldog (m, weight=11.3), and Rottweiler (l, weight=45.4) when considering past work on muscled dog breeds (like the French Bulldog) which have been observed to cluster more closely with larger, more muscled dog breeds than their same-size counterparts (Plassais, 2017). It is the combination of these two sensible branches into a cluster that is nonsensical, especially considering the inclusion of the unrelated Beagle and Kerry Blue Terrier branch, which has so reasonable explanation.  
 
--Cluster #3: This is likely the most accurate cluster in the dendrogram. It's a grouping of small and extra small dogs with the inclusion of the Golden Retriever (l, weight=30.6). This result makes sense in the context of prior studies where Golden Retriever were found to an outlier regarding their longevity in canines not just their longevity in comparison to other canines (Lewis, T. W., 2018). Since we are examining genes associated with longevity it then makes sense for the long-lived Golden Retriever to cluster with smaller dogs known to aslo live longer. 
+-Cluster #3: This is likely the most accurate cluster in the dendrogram. It's a grouping of small and extra small dogs with the inclusion of the Golden Retriever (l, weight=30.6). This result makes sense in the context of prior studies where Golden Retriever were found to an outlier regarding their longevity in canines not just their longevity in comparison to other canines (Lewis, T. W., 2018). Since we are examining genes associated with longevity it then makes sense for the long-lived Golden Retriever to cluster with smaller dogs known to also live longer. 
 
--Cluster #4: The clustering of the Maltese (xs, weight=3.5), and the Pembroke Welsh Corgi (s, weight=11.8) is not an uncompletely unrelated clustering since they belong to adjacent size groups.
+-Cluster #4: The clustering of the Maltese (xs, weight=3.5), and the Pembroke Welsh Corgi (s, weight=11.8) is not an incompletely unrelated clustering since they belong to adjacent size groups.
 
--Cluster #5: The clustering of the Irish Wolfhound (xl, weight=51.0) and the Weimaraner (l, weight=32.5), expecially then considering that the Irish Wolfhound is the only xl dog in the dataset. Of course the inclusion of the Bichon Frisé (s, weight=4) is inexplicable since the Bichon Frisé is by no means a muscled dog.
+-Cluster #5: The clustering of the Irish Wolfhound (xl, weight=51.0) and the Weimaraner (l, weight=32.5), especially then considering that the Irish Wolfhound is the only xl dog in the data set. Of course the inclusion of the Bichon Frisé (s, weight=4) is inexplicable since the Bichon Frisé is by no means a muscled dog.
 
 ### Conclusion 
 
-In regards to sequence composition the hypothesis has been dis-proven. The genotypic changes that cause huge phenotypic changes (both in morphology and life span) are too small to be detected through alignment, and clustering of these aligned sequences. Most of these changes are caused by SNPs. 
+In regards to sequence composition the hypothesis has been disproved. The genotypic changes that cause huge phenotypic changes (both in morphology and life span) are too small to be detected through alignment, and clustering of these aligned sequences. Most of these changes are caused by SNPs. 
 
-In regards to gene expression the hypothesis would need to be reexamined. When viewing the expression of singlular longevity/size genes the trend between expression and size is  relatively week. But if you produce a dataset which has multiple of these consistent smaller changes in expression based on dog size (aka clustering based off of the expression of multiple genes with similar functions) this pattern can begin to be elucidated with clustering. Perhaps in the future a more balanced expression data set in regards to dog size could produce more concrete results
+In regards to gene expression the hypothesis would need to be reexamined. When viewing the expression of singular longevity/size genes the trend between expression and size is  relatively week. But if you produce a data set which has multiple of these consistent smaller changes in expression based on dog size (aka clustering based off of the expression of multiple genes with similar functions) this pattern can begin to be elucidated with clustering. Perhaps in the future a more balanced expression data set in regards to dog size could produce more concrete results
+
+
+### Sources 
+dextend usage: http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-must-known-methods-unsupervised-machine-learning#plot.dendrogram-function
