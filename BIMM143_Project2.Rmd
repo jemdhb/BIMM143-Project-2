@@ -451,12 +451,12 @@ This is our most promising dendrogram. There are two branches with two large dog
 Through both alignment and clustering, differences between dogs sequence-wise seem to be insignificant when examining such a small subsection of dogs. Thankfully there is also expression data for the genes studied which covers more dog-breeds, depicted below.
 
 ```{r, out.width="500px",echo=F}
-knitr::include_graphics("small_coll.png")
+knitr::include_graphics("dog/small_coll.png")
 ```
 
 
 ```{r, out.width="400px",echo=F}
-knitr::include_graphics("large_coll.png")
+knitr::include_graphics("dog/large_coll.png")
 ```
 
 ### EDA of Dataset
