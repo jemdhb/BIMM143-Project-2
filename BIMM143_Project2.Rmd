@@ -1,10 +1,10 @@
 ---
 title: "Project 2 Notebook"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
     fig_caption: yes
+  pdf_document: default
 ---
 ## Introduction
 
@@ -119,7 +119,7 @@ library("ape")
 
 First we will be performing MSA and clustering with various sequence data (SNPS and gene fragments). Unfortunately, the scope of this data is limited to the 5 breeds shown below, and heavily weighs our analysis towards larger dogs. 
 ```{r, echo=F}
-knitr::include_graphics("dog/My_Post1.jpg")
+knitr::include_graphics("dog/msa_breeds.jpg")
 ```
 
 ### Function definitions 
@@ -298,10 +298,10 @@ Now lets move to multiple sequence alignment of our LCORL SNP, here we will use 
 ```{r}
 #LCORL call multiple sequence alignment helper function. Since LCORL_file.txt is
 #a smaller file, do save a msaprettyprint output."LCORL_file.txt": contains our 
-#fasta data for each dog breeds SNP +/- 5 bp. "fasta/names.txt": contains the 
+#fasta data for each dog breeds SNP +/- 5 bp. "fasta/LCORL_names.txt": contains the 
 #names of our sequence alignments to be used during msaprettyprint. "LCORL" 
 #determines the name of the saved prettyprint call to be LCORL.pdf
-alignment<-mult_alignments("fasta/LCORL_file.txt","fasta/names.txt","LCORL")
+alignment<-mult_alignments("fasta/LCORL_file.txt","fasta/LCORL_names.txt","LCORL")
 #show updated global variable
 print(alignment_name)
 ```
@@ -324,10 +324,10 @@ Now we can cluster our LCORL data with the previously explained create_dendrogra
 ```{r}
 #Cluster LCORL extended fragment 
 #call helper function create_dendrogram. LCORL_file.txt is the location of our 
-#fasta file containing the LCORL SNP +/- 5 bp for our our 6 dogs. names.txt 
+#fasta file containing the LCORL SNP +/- 5 bp for our our 6 dogs. LCORL_names.txt 
 #contains the names of these fasta sequences to be used for the visualization 
 #of the dendrogram. "LCORL Extended Fragment Dendrogram" is the figure title
-create_dendrogram("fasta/LCORL_file.txt", "fasta/names.txt", "LCORL Extended Fragment Dendrogram")
+create_dendrogram("fasta/LCORL_file.txt", "fasta/LCORL_names.txt", "LCORL Extended Fragment Dendrogram")
 ```
 The clustering by dog breed in this case appears to be inconclusive While the Golden Retriever (L), Great Dane (XL), German Shepherd (L), and boxer no ref (large) are all more closely related to each other than the Basenji (S) this does not explain the Basenji's close relationship with the Boxer ref sequence. There are several possible explanations for these results:
 
@@ -451,12 +451,12 @@ This is our most promising dendrogram. There are two branches with two large dog
 Through both alignment and clustering, differences between dogs sequence-wise seem to be insignificant when examining such a small subsection of dogs. Thankfully there is also expression data for the genes studied which covers more dog-breeds, depicted below.
 
 ```{r, out.width="500px",echo=F}
-knitr::include_graphics("dog/small_coll.png")
+knitr::include_graphics("dog/expression_breeds_1.png")
 ```
 
 
 ```{r, out.width="400px",echo=F}
-knitr::include_graphics("dog/large_coll.png")
+knitr::include_graphics("dog/expression_breeds_2.png")
 ```
 
 ### EDA of Dataset

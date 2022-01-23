@@ -1,6 +1,0 @@
-boxer ref (L)
-boxer noref (L)
-german sheperd (L)
-great dane (XL)
-golden retriever (L)
-basenji(S)
